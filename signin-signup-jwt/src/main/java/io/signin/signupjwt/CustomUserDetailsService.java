@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
        User user = userRepository.findByEmail(Email);
         if (user == null)
         {
-                 throw new UnauthorizedExpection();
+            throw new UnauthorizedExpection();
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(), mapRolesToAuthorities(user.getRoles()));

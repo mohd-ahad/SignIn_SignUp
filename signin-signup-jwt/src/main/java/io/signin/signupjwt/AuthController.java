@@ -1,6 +1,4 @@
 package io.signin.signupjwt;
-import io.signin.signupjwt.AuthenticationResponse;
-import io.signin.signupjwt.exception.UnauthorizedExpection;
 
 import java.util.Collections;
 
@@ -20,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import io.signin.signup.payload.LoginDto;
 import io.signin.signup.payload.SignUpDto;
@@ -57,9 +53,9 @@ public class AuthController {
     
 
     @PostMapping("/signin")
-    public ResponseEntity<io.signin.signupjwt.AuthenticationResponse> authenticateUser(@RequestBody LoginDto loginDto) throws UnauthorizedExpection{
+    public ResponseEntity<Object> authenticateUser(@RequestBody LoginDto loginDto) {
     	
-        org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        try{org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -70,7 +66,9 @@ public class AuthController {
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));}catch(Exception e){
+            return ResponseHandler.generateresponse("Email or Password Incorrect",HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @PostMapping("/signup")

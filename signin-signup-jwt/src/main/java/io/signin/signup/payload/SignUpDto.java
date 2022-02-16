@@ -4,13 +4,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import org.hibernate.annotations.Target;
-
-import java.lang.annotation.ElementType;
 
 @Data
 public class SignUpDto {
-@NotEmpty(message="Name Must Be Provided")
+@NotEmpty	
 private String name;
 @NotEmpty
 private String email;

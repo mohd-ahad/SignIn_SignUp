@@ -12,8 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ErrorDetails {
-	private String field;
-	private String code;
+	private Date timeStamp;
 	private String message;
+	private String details;
+
+
+	
+	
 	}
+	
+
 

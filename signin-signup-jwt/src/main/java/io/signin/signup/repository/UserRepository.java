@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
 import io.signin.signupjwt.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	User findByEmail(String email);
-
-	// Optional<User> findByUsernameOrEmail(String email);
+	 User findByEmail(String email);
+	   // Optional<User> findByUsernameOrEmail(String email);
 	    Boolean existsByEmail(String email);
 
 }
